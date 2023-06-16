@@ -2,7 +2,7 @@ import streamlit as st
 import pandas as pd
 import matplotlib.pyplot as plt
 
-st.title('Science Mill Summer Camp Dashboard')
+st.title('Science Mill Teacher Summer Camp Dashboard')
 
 # Raw GitHub link for your pre and post training data
 url_pre = 'https://raw.githubusercontent.com/henryco94/scienceMillDash/main/june12_pre.csv'

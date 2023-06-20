@@ -86,9 +86,9 @@ dashboard_function = st.sidebar.selectbox('Select a function:', ['Survey Analysi
 
 if dashboard_function == 'Survey Analysis':
     # Load the pre and post survey data
-    #df_pre = pd.read_csv('all_pre_survey_data.csv')
+   
     df_pre = pd.read_csv('https://raw.githubusercontent.com/henryco94/scienceMillDash/main/concatenated.csv')
-    df_post = pd.read_csv('stu_post_jun16.csv')
+    df_post = pd.read_csv('https://raw.githubusercontent.com/henryco94/scienceMillDash/main/june12_post.csv')
 
     # Drop the specified columns
     columns_to_drop = ['#', 'Responder', 'Person', 'Teacher Number', 'Type', 'Approval Status', 'Date', 'Unnamed: 0',
@@ -209,7 +209,7 @@ if dashboard_function == 'Survey Analysis':
         add_percentage(ax)
         plt.tight_layout()
         st.pyplot(fig)
-# Your existing dashboard functionality goes here...
+
 elif dashboard_function == 'Survey Completion':
     pre_file_path = 'concatenated.csv'
     post_file_path = 'stu_post_jun16.csv'

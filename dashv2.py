@@ -215,7 +215,7 @@ elif dashboard_function == 'Survey Completion':
     
     pre_file_path = pd.read_csv(url_pre)
     post_file_path = pd.read_csv(url_post)
-    third_file_path = '2023 Summer Camp Enrollment Dashboard.xlsx'
+    third_file_path = 'https://github.com/henryco94/scienceMillDash/blob/7b69ef1dea571d329ed19947bf97d91bba33fb3a/2023%20Summer%20Camp%20Enrollment%20Dashboard.xlsx'
 
     # Get the available camp dates
     available_camp_dates = get_camp_dates(third_file_path)

@@ -211,8 +211,8 @@ if dashboard_function == 'Survey Analysis':
         st.pyplot(fig)
 
 elif dashboard_function == 'Survey Completion':
-    pre_file_path = 'concatenated.csv'
-    post_file_path = 'stu_post_jun16.csv'
+    pre_file_path = 'https://raw.githubusercontent.com/henryco94/scienceMillDash/main/concatenated.csv'
+    post_file_path = 'https://raw.githubusercontent.com/henryco94/scienceMillDash/main/june12_post.csv'
     third_file_path = '2023 Summer Camp Enrollment Dashboard.xlsx'
 
     # Get the available camp dates

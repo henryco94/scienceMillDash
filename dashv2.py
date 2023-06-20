@@ -1,5 +1,7 @@
 import pandas as pd
+import plotly.graph_objects as go
 import streamlit as st
+import pandas as pd
 import matplotlib.pyplot as plt
 
 st.title('Science Mill Student Summer Camp Dashboard')
@@ -64,13 +66,17 @@ def compare_surveys(pre_file_path, post_file_path, third_file_path, camp_dates):
     merged_data = pd.merge(merged_data, third_data, on='district', how='outer')
     merged_data = merged_data.fillna(0)
 
-    fig, ax = plt.subplots(figsize=(10, 6))
-    merged_data.plot(x='district', y=['count_pre', 'count_post', 'count_enroll', 'count_present'], kind='bar', ax=ax)
-    plt.title(f'Pre vs Post Survey Counts, Enrollment Numbers, and Presence for Camp Dates: {camp_dates}')
-    plt.xlabel('District')
-    plt.ylabel('Count')
-    plt.xticks(rotation=45)
-    plt.tight_layout()
+    fig = go.Figure(data=[
+        go.Bar(name='Pre', x=merged_data['district'], y=merged_data['count_pre']),
+        go.Bar(name='Post', x=merged_data['district'], y=merged_data['count_post']),
+        go.Bar(name='Enrollment', x=merged_data['district'], y=merged_data['count_enroll']),
+        go.Bar(name='Present', x=merged_data['district'], y=merged_data['count_present'])
+    ])
+
+    fig.update_layout(barmode='group',
+                      xaxis_title='District',
+                      yaxis_title='Count',
+                      title=f'Pre vs Post Survey Counts, Enrollment Numbers, and Presence for Camp Dates: {camp_dates}')
 
     return fig  # return the figure
 
@@ -80,14 +86,9 @@ dashboard_function = st.sidebar.selectbox('Select a function:', ['Survey Analysi
 
 if dashboard_function == 'Survey Analysis':
     # Load the pre and post survey data
-
-    # Raw GitHub link for your pre and post training data
-    url_pre = 'https://raw.githubusercontent.com/henryco94/scienceMillDash/main/concatenated.csv'
-    url_post = 'https://raw.githubusercontent.com/henryco94/scienceMillDash/main/june12_post.csv'
-
-    # Load the pre and post survey data
-    df_pre = pd.read_csv('https://raw.githubusercontent.com/henryco94/scienceMillDash/main/concatenated.csv')
-    df_post = pd.read_csv('https://raw.githubusercontent.com/henryco94/scienceMillDash/main/june12_post.csv')
+    #df_pre = pd.read_csv('all_pre_survey_data.csv')
+    df_pre = pd.read_csv('concatenated.csv')
+    df_post = pd.read_csv('stu_post_jun16.csv')
 
     # Drop the specified columns
     columns_to_drop = ['#', 'Responder', 'Person', 'Teacher Number', 'Type', 'Approval Status', 'Date', 'Unnamed: 0',
@@ -208,14 +209,11 @@ if dashboard_function == 'Survey Analysis':
         add_percentage(ax)
         plt.tight_layout()
         st.pyplot(fig)
-
+# Your existing dashboard functionality goes here...
 elif dashboard_function == 'Survey Completion':
-    url_pre = 'https://raw.githubusercontent.com/henryco94/scienceMillDash/main/concatenated.csv'
-    url_post = 'https://raw.githubusercontent.com/henryco94/scienceMillDash/main/june12_post.csv'
-    
-    pre_file_path = pd.read_csv(url_pre)
-    post_file_path = pd.read_csv(url_post)
-    third_file_path = 'https://github.com/henryco94/scienceMillDash/blob/7b69ef1dea571d329ed19947bf97d91bba33fb3a/2023%20Summer%20Camp%20Enrollment%20Dashboard.xlsx'
+    pre_file_path = 'concatenated.csv'
+    post_file_path = 'stu_post_jun16.csv'
+    third_file_path = '2023 Summer Camp Enrollment Dashboard.xlsx'
 
     # Get the available camp dates
     available_camp_dates = get_camp_dates(third_file_path)
@@ -232,4 +230,4 @@ elif dashboard_function == 'Survey Completion':
         if fig is None:
             st.write("Data Available Soon")
         else:
-            st.pyplot(fig)  # use this line to display the figure
+            st.plotly_chart(fig)  # use this line to display the figure

@@ -86,9 +86,14 @@ dashboard_function = st.sidebar.selectbox('Select a function:', ['Survey Analysi
 
 if dashboard_function == 'Survey Analysis':
     # Load the pre and post survey data
-   
-    df_pre = pd.read_csv('https://raw.githubusercontent.com/henryco94/scienceMillDash/main/concatenated.csv')
-    df_post = pd.read_csv('https://raw.githubusercontent.com/henryco94/scienceMillDash/main/june12_post.csv')
+
+    # Raw GitHub link for your pre and post training data
+    url_pre = 'https://raw.githubusercontent.com/henryco94/scienceMillDash/main/concatenated.csv'
+    url_post = 'https://raw.githubusercontent.com/henryco94/scienceMillDash/main/june12_post.csv'
+
+    # Load the pre and post survey data
+    df_pre = pd.read_csv(url_pre)
+    df_post = pd.read_csv(url_post)
 
     # Drop the specified columns
     columns_to_drop = ['#', 'Responder', 'Person', 'Teacher Number', 'Type', 'Approval Status', 'Date', 'Unnamed: 0',
@@ -211,8 +216,11 @@ if dashboard_function == 'Survey Analysis':
         st.pyplot(fig)
 
 elif dashboard_function == 'Survey Completion':
-    pre_file_path = 'https://raw.githubusercontent.com/henryco94/scienceMillDash/main/concatenated.csv'
-    post_file_path = 'https://raw.githubusercontent.com/henryco94/scienceMillDash/main/june12_post.csv'
+    url_pre = 'https://raw.githubusercontent.com/henryco94/scienceMillDash/main/concatenated.csv'
+    url_post = 'https://raw.githubusercontent.com/henryco94/scienceMillDash/main/june12_post.csv'
+    
+    pre_file_path = pd.read_csv(url_pre)
+    post_file_path = pd.read_csv(url_post)
     third_file_path = '2023 Summer Camp Enrollment Dashboard.xlsx'
 
     # Get the available camp dates

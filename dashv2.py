@@ -86,7 +86,7 @@ dashboard_function = st.sidebar.selectbox('Select a function:', ['Survey Analysi
 
 if dashboard_function == 'Survey Analysis':
     # Load the pre and post survey data
-    #df_pre = pd.read_csv('all_pre_survey_data.csv')
+    
     df_pre = pd.read_csv('concatenated.csv')
     df_post = pd.read_csv('stu_post_jun16.csv')
 

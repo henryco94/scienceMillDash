@@ -1,7 +1,5 @@
 import pandas as pd
-import plotly.graph_objects as go
 import streamlit as st
-import pandas as pd
 import matplotlib.pyplot as plt
 
 st.title('Science Mill Student Summer Camp Dashboard')
@@ -66,17 +64,13 @@ def compare_surveys(pre_file_path, post_file_path, third_file_path, camp_dates):
     merged_data = pd.merge(merged_data, third_data, on='district', how='outer')
     merged_data = merged_data.fillna(0)
 
-    fig = go.Figure(data=[
-        go.Bar(name='Pre', x=merged_data['district'], y=merged_data['count_pre']),
-        go.Bar(name='Post', x=merged_data['district'], y=merged_data['count_post']),
-        go.Bar(name='Enrollment', x=merged_data['district'], y=merged_data['count_enroll']),
-        go.Bar(name='Present', x=merged_data['district'], y=merged_data['count_present'])
-    ])
-
-    fig.update_layout(barmode='group',
-                      xaxis_title='District',
-                      yaxis_title='Count',
-                      title=f'Pre vs Post Survey Counts, Enrollment Numbers, and Presence for Camp Dates: {camp_dates}')
+    fig, ax = plt.subplots(figsize=(10, 6))
+    merged_data.plot(x='district', y=['count_pre', 'count_post', 'count_enroll', 'count_present'], kind='bar', ax=ax)
+    plt.title(f'Pre vs Post Survey Counts, Enrollment Numbers, and Presence for Camp Dates: {camp_dates}')
+    plt.xlabel('District')
+    plt.ylabel('Count')
+    plt.xticks(rotation=45)
+    plt.tight_layout()
 
     return fig  # return the figure
 
@@ -238,4 +232,4 @@ elif dashboard_function == 'Survey Completion':
         if fig is None:
             st.write("Data Available Soon")
         else:
-            st.plotly_chart(fig)  # use this line to display the figure
+            st.pyplot(fig)  # use this line to display the figure

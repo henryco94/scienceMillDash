@@ -80,6 +80,27 @@ def compare_surveys(pre_file_path, post_file_path, third_file_path, camp_dates):
 
     return fig  # return the figure
 
+def compare_present_enrollment(third_file_path, camp_dates):
+    third_data = read_excel(third_file_path, camp_dates)
+    third_data = third_data[['district', 'number of students', 'present']]
+
+    # If there are null values in the "Present" column, return None
+    if third_data['present'].isnull().values.any():
+        return None
+
+    third_data.columns = ['district', 'count_enroll', 'count_present']
+
+    fig = go.Figure(data=[
+        go.Bar(name='Enrollment', x=third_data['district'], y=third_data['count_enroll']),
+        go.Bar(name='Present', x=third_data['district'], y=third_data['count_present'])
+    ])
+
+    fig.update_layout(barmode='group',
+                      xaxis_title='District',
+                      yaxis_title='Count',
+                      title=f'Enrollment Numbers vs Presence for Camp Dates: {camp_dates}')
+
+    return fig  # return the figure
 
 # Sidebar selectbox for dashboard functionality
 dashboard_function = st.sidebar.selectbox('Select a function:', ['Survey Analysis', 'Survey Completion'])
@@ -209,7 +230,7 @@ if dashboard_function == 'Survey Analysis':
         add_percentage(ax)
         plt.tight_layout()
         st.pyplot(fig)
-# Your existing dashboard functionality goes here...
+
 elif dashboard_function == 'Survey Completion':
     pre_file_path = 'concatenated.csv'
     post_file_path = 'stu_post_jun16.csv'
@@ -231,3 +252,13 @@ elif dashboard_function == 'Survey Completion':
             st.write("Data Available Soon")
         else:
             st.plotly_chart(fig)  # use this line to display the figure
+
+        # Generate and display the 'Present vs Enrollment' graph
+        fig_present_enroll = compare_present_enrollment(third_file_path, selected_camp_date)
+
+        # If fig_present_enroll is None, display the message "Data Available Soon"
+        if fig_present_enroll is None:
+            st.write("Present vs Enrollment Data Available Soon")
+        else:
+            st.plotly_chart(fig_present_enroll)  # use this line to display the figure
+

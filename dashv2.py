@@ -234,7 +234,7 @@ if dashboard_function == 'Survey Analysis':
 elif dashboard_function == 'Survey Completion': 
     pre_file_path = 'concatenated(1).csv'
     post_file_path = 'stu_post_jul03.csv'
-    third_file_path = '2023 Summer Camp Enrollment Dashboard(4).xlsx'
+    third_file_path = '2023 Summer Camp Enrollment Dashboard.xlsx'
 
     # Get the available camp dates
     available_camp_dates = get_camp_dates(third_file_path)

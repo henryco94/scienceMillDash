@@ -232,7 +232,7 @@ if dashboard_function == 'Survey Analysis':
         st.pyplot(fig)
 
 elif dashboard_function == 'Survey Completion':
-    pre_file_path = 'concatenated.csv'
+    pre_file_path = 'concatenated(1).csv'
     post_file_path = 'stu_post_jun16.csv'
     third_file_path = '2023 Summer Camp Enrollment Dashboard.xlsx'
 

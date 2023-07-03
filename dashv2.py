@@ -109,7 +109,7 @@ if dashboard_function == 'Survey Analysis':
     # Load the pre and post survey data
     
     df_pre = pd.read_csv('https://raw.githubusercontent.com/henryco94/scienceMillDash/main/concatenated(1).csv')
-    df_post = pd.read_csv('https://raw.githubusercontent.com/henryco94/scienceMillDash/main/stu_post_jun16.csv')
+    df_post = pd.read_csv('https://raw.githubusercontent.com/henryco94/scienceMillDash/main/stu_post_jul03.csv')
 
     # Drop the specified columns
     columns_to_drop = ['#', 'Responder', 'Person', 'Teacher Number', 'Type', 'Approval Status', 'Date', 'Unnamed: 0',
@@ -233,7 +233,7 @@ if dashboard_function == 'Survey Analysis':
 
 elif dashboard_function == 'Survey Completion':
     pre_file_path = 'concatenated(1).csv'
-    post_file_path = 'stu_post_jun16.csv'
+    post_file_path = 'stu_post_jul03.csv'
     third_file_path = '2023 Summer Camp Enrollment Dashboard.xlsx'
 
     # Get the available camp dates

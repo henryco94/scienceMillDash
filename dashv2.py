@@ -4,6 +4,8 @@ import streamlit as st
 import pandas as pd
 import matplotlib.pyplot as plt
 
+#Developed by Henry Salgado
+
 st.title('Science Mill Student Summer Camp Dashboard')
 
 def get_camp_dates(file_path):
